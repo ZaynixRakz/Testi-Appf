@@ -1,4 +1,4 @@
-name: Build Android APK Final
+name: Build Android APK Final Fix
 
 on:
   push:
@@ -25,15 +25,10 @@ jobs:
         with:
           channel: 'stable'
 
-      - name: 4. Pembersihan Total & Reset Folder Android (Anti Eror Gradle)
+      - name: 4. Pembersihan Total & Reset Folder Android
         run: |
-          # Menghapus total file zip jadul dan konfigurasi lama yang merusak kompilasi
           rm -rf Hello-World.zip pubspec.yaml android ios lib web windows macos linux
-          
-          # Robot membuat ulang struktur folder Flutter Android paling segar dan up-to-date
           flutter create zaynix_final_app --org com.zaynix.forsaken
-          
-          # Memindahkan seluruh folder baru yang bersih ke area utama luar
           cp -r zaynix_final_app/* .
           rm -rf zaynix_final_app
 
@@ -70,7 +65,6 @@ jobs:
           }
 
           class _DashboardScreenState extends State<DashboardScreen> {
-            // Status tombol On/Off fitur optimasi game Zaynix ForSaken v3.0.3
             bool _dynamicSensi = false;
             bool _aimDragPath = false;
             bool _recoilController = false;
@@ -90,13 +84,12 @@ jobs:
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // HEADER BRAND UTAMA (GAYA NEON SNITZX)
                         const Text(
                           'ZAYNIX FORSAKEN',
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xff00FF66), // Hijau Neon Menyala
+                            color: Color(0xff00FF66), 
                             letterSpacing: 1.5,
                           ),
                         ),
@@ -106,7 +99,6 @@ jobs:
                         ),
                         const SizedBox(height: 25),
 
-                        // TOMBOL UTAMA: JALANKAN DAPA CORE
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -124,7 +116,6 @@ jobs:
                         ),
                         const SizedBox(height: 20),
 
-                        // KUMPULAN BENTO CARD FITUR OPTIMASI UTAMA
                         _buildFeatureCard('Dynamic Sensitivity', 'Bisa set sensitivitas lebih tinggi untuk respon cepat.', _dynamicSensi, (v) => setState(() => _dynamicSensi = v)),
                         _buildFeatureCard('AimDrag Path', 'Membantu mengarahkan crosshair ke target lebih akurat.', _aimDragPath, (v) => setState(() => _aimDragPath = v)),
                         _buildFeatureCard('Recoil Controller', 'Menyeimbangkan hentakan senjata saat menembak.', _recoilController, (v) => setState(() => _recoilController = v)),
@@ -140,10 +131,9 @@ jobs:
               );
             }
 
-            // WIDGET KOTAK (BENTO CARD) BERGAYA PINGGIRAN HIJAU NEON MENYALA
             Widget _buildFeatureCard(String title, String subtitle, bool value, ValueChanged<bool> onChanged) {
               return Container(
-                margin: const EdgeInsets.bottom(14),
+                margin: const EdgeInsets.only(bottom: 14), // <-- TYPO SUDAH DI-FIX DI SINI
                 decoration: BoxDecoration(
                   color: const Color(0xff121820),
                   borderRadius: BorderRadius.circular(12),
