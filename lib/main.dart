@@ -28,6 +28,7 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  // Status tombol On/Off fitur optimasi game
   bool _dynamicSensi = false;
   bool _aimDragPath = false;
   bool _recoilController = false;
@@ -47,15 +48,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // HEADER BRAND (Gaya SNITZX PROJECTS)
               const Text(
                 'ZAYNIX FORSAKEN',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xff00FF66), letterSpacing: 1.5),
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xff00FF66), 
+                  letterSpacing: 1.5,
+                ),
               ),
               const Text(
                 'Version 3.0.3 – Tools Inject & Utility',
                 style: TextStyle(color: Colors.grey, fontSize: 12),
               ),
               const SizedBox(height: 25),
+
+              // TOMBOL UTAMA: JALANKAN DAPA CORE
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -72,6 +81,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
               const SizedBox(height: 20),
+
+              // DAFTAR BENTO CARD FITUR OPTIMASI
               _buildFeatureCard('Dynamic Sensitivity', 'Bisa set sensitivitas lebih tinggi untuk respon cepat.', _dynamicSensi, (v) => setState(() => _dynamicSensi = v)),
               _buildFeatureCard('AimDrag Path', 'Membantu mengarahkan crosshair ke target lebih akurat.', _aimDragPath, (v) => setState(() => _aimDragPath = v)),
               _buildFeatureCard('Recoil Controller', 'Menyeimbangkan hentakan senjata saat menembak.', _recoilController, (v) => setState(() => _recoilController = v)),
@@ -87,4 +98,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  
+  Widget _buildFeatureCard(String title, String subtitle, bool value, ValueChanged<bool> onChanged) {
+    return Container(
+      margin: const EdgeInsets.bottom(14),
+      decoration: BoxDecoration(
+        color: const Color(0xff121820),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: value ? const Color(0xff00FF66) : const Color(0xff1C2431),
+          width: 2,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(14.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
+                  const SizedBox(height: 4),
+                  Text(subtitle, style: const TextStyle(color: Colors.grey, fontSize: 11)),
+                ],
+              ),
+            ),
+            Switch(
+              value: value,
+              onChanged: onChanged,
+              activeColor: const Color(0xff00FF66),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
