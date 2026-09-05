@@ -1,0 +1,39 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ambil Kode dari Repo
+        uses: actions/checkout@v4
+
+      - name: Siapkan Mesin Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Siapkan Mesin Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Ambil Library
+        run: flutter pub get
+
+      - name: Mulai Merakit APK
+        run: flutter build apk --debug
+
+      - name: Upload File APK Hasil Jadi
+        uses: actions/upload-artifact@v4
+        with:
+          name: Zaynix-ForSaken-v303
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          
